@@ -127,8 +127,7 @@ func (h *Handler) storeOrder(orderNumber string, data []OrderDetails) {
 
 func (h *Handler) RemoveExpiredOrder() {
 	log.Println("runner for removeExpiredOrder!!")
-	h.lock.Lock()
-	defer h.lock.RUnlock()
+
 	for k := range h.data {
 		if h.data[k].ExpiredAtTimeStamp < time.Now().Unix() {
 			delete(h.data, k)
