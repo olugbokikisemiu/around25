@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/around-project/config"
@@ -40,7 +41,7 @@ func main() {
 	orderPath.DELETE("/:order_id", router.DeleteOrder)
 
 	if err := r.Run(fmt.Sprintf(":%s", con.ServerPort)); err != nil {
-		panic(err)
+		log.Fatalf("main error: %+v", err)
 
 	}
 }
