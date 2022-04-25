@@ -13,32 +13,32 @@ func init() {
 	// store order one
 	h.storeOrder("ABC123", []OrderDetails{
 		{
-			Latitude:  "123.11",
-			Longitude: "10.99",
+			Latitude:  123.11,
+			Longitude: 10.99,
 		},
 		{
-			Latitude:  "709.12",
-			Longitude: "25.9",
+			Latitude:  709.12,
+			Longitude: 25.9,
 		},
 		{
-			Latitude:  "502.12",
-			Longitude: "55.2",
+			Latitude:  502.12,
+			Longitude: 55.2,
 		},
 	})
 
 	// store order two
 	h.storeOrder("ABC124", []OrderDetails{
 		{
-			Latitude:  "90.11",
-			Longitude: "710.99",
+			Latitude:  90.11,
+			Longitude: 710.99,
 		},
 		{
-			Latitude:  "199.00",
-			Longitude: "35.7",
+			Latitude:  199.00,
+			Longitude: 35.7,
 		},
 		{
-			Latitude:  "119.00",
-			Longitude: "135.2",
+			Latitude:  119.00,
+			Longitude: 135.2,
 		},
 	})
 }
@@ -65,8 +65,8 @@ func Test_GetOrder(t *testing.T) {
 			ExpectedResponse: OrderResponse{
 				OrderID: "ABC124",
 				History: []OrderDetails{
-					{Latitude: "90.11", Longitude: "710.99"},
-					{Latitude: "199.00", Longitude: "35.7"},
+					{Latitude: 90.11, Longitude: 710.99},
+					{Latitude: 199.00, Longitude: 35.7},
 				},
 			},
 		},

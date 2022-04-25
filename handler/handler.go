@@ -17,7 +17,7 @@ func NewHandler(cacheTTL time.Duration) *Handler {
 	return &Handler{data: make(map[string]Order), cacheTTL: cacheTTL}
 }
 
-func (h *Handler) MakeOrder(orderNumber string, lat string, lng string) {
+func (h *Handler) MakeOrder(orderNumber string, lat float64, lng float64) {
 	h.lock.RLock()
 	defer h.lock.RUnlock()
 	order := OrderDetails{

@@ -1,8 +1,8 @@
 package handler
 
 type OrderDetails struct {
-	Latitude  string `json:"lat" binding:"required"`
-	Longitude string `json:"lng" binding:"required"`
+	Latitude  float64 `json:"lat" binding:"required"`
+	Longitude float64 `json:"lng" binding:"required"`
 }
 
 type OrderResponse struct {
