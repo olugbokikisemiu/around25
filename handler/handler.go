@@ -18,8 +18,8 @@ func NewHandler(cacheTTL time.Duration) *Handler {
 }
 
 func (h *Handler) MakeOrder(orderNumber string, lat float64, lng float64) {
-	h.lock.RLock()
-	defer h.lock.RUnlock()
+	h.lock.Lock()
+	defer h.lock.Unlock()
 	order := OrderDetails{
 		Latitude:  lat,
 		Longitude: lng,

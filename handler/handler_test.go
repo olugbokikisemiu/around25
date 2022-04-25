@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"sync"
 	"testing"
 	"time"
 
@@ -125,4 +126,36 @@ func deleteOrder(t *testing.T, tc *HandlerTestCase) {
 
 	getOrder(t, tc)
 
+}
+
+func Test_MakeOrder(t *testing.T) {
+	orderNum := "test1"
+	cases := []OrderDetails{
+		{Latitude: 1, Longitude: 710.99},
+		{Latitude: 2, Longitude: 35.7},
+		{Latitude: 3, Longitude: 35.7},
+		{Latitude: 4, Longitude: 35.7},
+		{Latitude: 5, Longitude: 35.7},
+		{Latitude: 6, Longitude: 35.7},
+		{Latitude: 7, Longitude: 35.7},
+		{Latitude: 8, Longitude: 35.7},
+		{Latitude: 9, Longitude: 35.7},
+	}
+
+	wt := sync.WaitGroup{}
+
+	for _, tc := range cases {
+		wt.Add(1)
+		go func() {
+			h.MakeOrder(orderNum, tc.Latitude, tc.Longitude)
+			wt.Done()
+		}()
+	}
+
+	wt.Wait()
+
+	history, ok := h.loadOrder(orderNum)
+	assert.True(t, ok)
+
+	assert.Equal(t, len(cases), len(history))
 }
