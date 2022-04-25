@@ -40,7 +40,8 @@ func main() {
 	orderPath.DELETE("/:order_id", router.DeleteOrder)
 
 	if err := r.Run(fmt.Sprintf(":%s", con.ServerPort)); err != nil {
-		fmt.Printf("main run: %v", err)
+		panic(err)
+
 	}
 }
 

@@ -18,21 +18,31 @@ func NewHandler(cacheTTL time.Duration) *Handler {
 }
 
 func (h *Handler) MakeOrder(orderNumber string, lat string, lng string) {
+	h.lock.RLock()
+	defer h.lock.RUnlock()
 	order := OrderDetails{
 		Latitude:  lat,
 		Longitude: lng,
 	}
 
-	v, ok := h.loadOrder(orderNumber)
+	t := time.Now().Add(h.cacheTTL)
+
+	orderData := Order{
+		ExpiredAtTimeStamp: t.Unix(),
+	}
+
+	res, ok := h.data[orderNumber]
 	if !ok {
 		orderDetails := []OrderDetails{}
 
 		orderDetails = append(orderDetails, order)
-		h.storeOrder(orderNumber, orderDetails)
+		orderData.OrderDetails = orderDetails
 	} else {
-		v = append(v, order)
-		h.storeOrder(orderNumber, v)
+		res.OrderDetails = append(res.OrderDetails, order)
+		orderData.OrderDetails = res.OrderDetails
 	}
+
+	h.data[orderNumber] = orderData
 
 }
 
